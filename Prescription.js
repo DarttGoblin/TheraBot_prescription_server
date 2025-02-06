@@ -91,11 +91,11 @@ app.post('/', (req, res) => {
                         });
                         doc.pipe(res);
                         
-                        // doc.image('logo-no-bg.png', {
-                        //     fit: [100, 100],
-                        //     x: doc.page.width - 130, 
-                        //     y: 30
-                        // });
+                        doc.image(path.join(__dirname, 'logo-no-bg.png'), {
+                            fit: [100, 100],
+                            x: doc.page.width - 130, 
+                            y: 30
+                        });
                     
                         doc.fillColor('#6240E8').fontSize(40).text('TheraBot', 30, 50);
                         doc.fillColor('#646464').fontSize(20).text('Diagnosis ChatBot', 30, 90);
@@ -107,7 +107,7 @@ app.post('/', (req, res) => {
                         doc.moveDown();
                         
                         doc.fillColor('#000000').fontSize(20).text('Disease:', 30, 200);
-                        doc.fillColor('#646464').fontSize(16).text(confirmed_disease, 50, 230);
+                        doc.fillColor('#646464').fontSize(16).text(CapitalizeName(confirmed_disease.replace(/_/g, ' ')), 50, 230);
                         
                         // Handle dynamic treatment block height
                         const treatmentTextHeight = doc.heightOfString(treatment, { width: doc.page.width - 60 });
@@ -117,17 +117,17 @@ app.post('/', (req, res) => {
                         doc.fillColor('#646464').fontSize(16).text(treatment, 50, 300, { width: doc.page.width - 60 });
                     
                         // Set y position for "Recommendation" based on the treatment height
-                        const recommendationY = 300 + treatmentTextHeight + 10; // Adjust the spacing here if needed
+                        const recommendationY = 300 + treatmentTextHeight + 20; // Adjust the spacing here if needed
                     
                         doc.moveDown();
                         doc.fillColor('#000000').fontSize(20).text('Recommendation:', 30, recommendationY);
                         doc.fillColor('#646464').fontSize(16).text(recommendation, 50, recommendationY + 30);
                     
-                        // doc.image('signature.png', {
-                        //     fit: [100, 50],
-                        //     x: doc.page.width - 130, 
-                        //     y: doc.page.height - 80
-                        // });
+                        doc.image(path.join(__dirname, 'signature.png'), {
+                            fit: [100, 50],
+                            x: doc.page.width - 130, 
+                            y: doc.page.height - 80
+                        });
                     
                         doc.end();
                     } catch (error) {
@@ -139,6 +139,12 @@ app.post('/', (req, res) => {
         });
     });
 });
+
+function CapitalizeName(name) {
+    return name.split(' ')
+               .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+               .join(' ');
+}
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
