@@ -91,11 +91,11 @@ app.post('/', (req, res) => {
                         });
                         doc.pipe(res);
                         
-                        doc.image('logo-no-bg.png', {
-                            fit: [100, 100],
-                            x: doc.page.width - 130, 
-                            y: 30
-                        });
+                        // doc.image('logo-no-bg.png', {
+                        //     fit: [100, 100],
+                        //     x: doc.page.width - 130, 
+                        //     y: 30
+                        // });
                     
                         doc.fillColor('#6240E8').fontSize(40).text('TheraBot', 30, 50);
                         doc.fillColor('#646464').fontSize(20).text('Diagnosis ChatBot', 30, 90);
@@ -123,11 +123,11 @@ app.post('/', (req, res) => {
                         doc.fillColor('#000000').fontSize(20).text('Recommendation:', 30, recommendationY);
                         doc.fillColor('#646464').fontSize(16).text(recommendation, 50, recommendationY + 30);
                     
-                        doc.image('signature.png', {
-                            fit: [100, 50],
-                            x: doc.page.width - 130, 
-                            y: doc.page.height - 80
-                        });
+                        // doc.image('signature.png', {
+                        //     fit: [100, 50],
+                        //     x: doc.page.width - 130, 
+                        //     y: doc.page.height - 80
+                        // });
                     
                         doc.end();
                     } catch (error) {
